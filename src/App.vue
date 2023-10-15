@@ -1,20 +1,13 @@
 <script setup>
-import {ref, reactive} from 'vue'
+import { ref } from 'vue'
 
-const message = ref('Hello World!')
-const counter = reactive({
-  count:0
-})
-
-console.log(message.value)
-message.value = 'Changed'
-
-console.log(counter.count)
-counter.count++
-
+const titleClass = ref('title')
 </script>
 <template>
-  <h1>{{ message }}</h1>
-  <p>count is: {{ counter.count }}</p>
-  <h1>{{ message.split('').reverse().join() }}</h1>
+    <h1 v-bind:class="titleClass">Make me red</h1>
 </template>
+<style scoped>
+.title {
+  color:red;
+}
+</style>
