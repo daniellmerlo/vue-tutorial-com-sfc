@@ -1,13 +1,12 @@
 <script setup>
 import { ref } from 'vue'
 
-const titleClass = ref('title')
+const count = ref(0)
+
+function increment() {
+  count.value++
+}
 </script>
 <template>
-    <h1 v-bind:class="titleClass">Make me red</h1>
+    <button v-on:click="increment">count is: {{ count }}</button>
 </template>
-<style scoped>
-.title {
-  color:red;
-}
-</style>
