@@ -1,14 +1,21 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 let id = 0
 
 const newTodo = ref('')
+const hideCompleted = ref(false)
 const todos = ref([
-  { id: id++, text: 'Learn HTML' },
-  { id: id++, text: 'Learn JavaScript' },
-  { id: id++, text: 'Learn Vue' }
+  { id: id++, text: 'Learn HTML', done: true },
+  { id: id++, text: 'Learn JavaScript', done: true },
+  { id: id++, text: 'Learn Vue', done: false }
 ])
+
+const filteredTodos = computed(() => {
+  return hideCompleted.value
+  ? todos.value.filter((t) => !t.done)
+  : todos.value
+})
 
 function addTodo() {
   todos.value.push({ id: id++, text: newTodo.value })
@@ -25,9 +32,18 @@ function removeTodo(todo) {
       <button>Add Todo</button>
     </form>
     <ul>
-      <li v-for="todo in todos" :key="todo.id">
-        {{ todo.text }}
+      <li v-for="todo in filteredTodos" :key="todo.id">
+        <input type="checkbox" :key="todo.done" v-model="todo.done">
+        <span :class="{done: todo.done}">{{ todo.text }}</span>
         <button v-on:click="removeTodo(todo)">X</button>
       </li>
     </ul>
+    <button @click="hideCompleted = !hideCompleted">
+      {{ hideCompleted ? 'Show All' : 'Hide Completed' }}
+    </button>
 </template>
+<style>
+.done {
+  text-decoration: line-through;
+}
+</style>
