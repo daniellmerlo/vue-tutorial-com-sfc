@@ -1,8 +1,8 @@
 <script setup>
-const props = defineProps({
-    msg: String
-})
+const emit = defineEmits(['response'])
+
+emit('response', 'Hello from child')
 </script>
 <template>
-    <h2>{{ msg || 'No props passed yet' }}</h2>
+    <h2>Child componentt</h2>
 </template>
